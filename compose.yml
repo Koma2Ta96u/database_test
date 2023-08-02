@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  mysql:
+    container_name: db
+    image: mysql:8
+    volumes:
+      - ./resource/mysql/conf.d:/etc/mysql/conf.d:cached
+      - ./resource/mysql/initdb.d:/docker-entrypoint-initdb.d:cached
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=Asia/Tokyo
+
+  adminer: # DB参照ツール
+    container_name: db-tool
+    image: adminer:latest
+    ports:
+      - "3300:8080"
